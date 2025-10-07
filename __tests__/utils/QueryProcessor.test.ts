@@ -34,23 +34,25 @@ describe("QueryProcessor", () => {
         ));
     })
 
-    test('should return correct addition for 26 plus 41', () => {
-        const query = "What is 26 plus 41?";
-        const response: string = QueryProcessor(query);
-        expect(response).toBe("67");
+    test('should add two numbers', () => {
+        expect(QueryProcessor("5 plus 3")).toBe("8");
+        expect(QueryProcessor("10 plus 20")).toBe("30");
+        expect(QueryProcessor("0 plus 0")).toBe("0");
     });
 
-    test('should return correct addition for any two numbers', () => {
-        const query1 = "What is 5 plus 3?";
-        const response1: string = QueryProcessor(query1);
-        expect(response1).toBe("8");
+    test('should add numbers with different formats', () => {
+        expect(QueryProcessor("What is 5 plus 3?")).toBe("8");
+        expect(QueryProcessor("26 plus 41")).toBe("67");
+        expect(QueryProcessor("100 plus 200")).toBe("300");
+    });
 
-        const query2 = "What is 100 plus 200?";
-        const response2: string = QueryProcessor(query2);
-        expect(response2).toBe("300");
+    test('should find largest number in a list', () => {
+        expect(QueryProcessor("Which of the following numbers is the largest: 73, 14, 21?")).toBe("73");
+        expect(QueryProcessor("Which of the following numbers is the largest: 1, 2, 3, 4, 5?")).toBe("5");
+        expect(QueryProcessor("Which of the following numbers is the largest: 100, 50, 75?")).toBe("100");
+    });
 
-        const query3 = "What is 0 plus 0?";
-        const response3: string = QueryProcessor(query3);
-        expect(response3).toBe("0");
+    test('should handle single number in list', () => {
+        expect(QueryProcessor("Which of the following numbers is the largest: 42?")).toBe("42");
     });
 });
